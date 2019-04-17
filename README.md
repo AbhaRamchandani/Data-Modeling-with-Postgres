@@ -5,11 +5,25 @@ Model data with Postgres and build an ETL pipeline using Python.
 (i) define fact and dimension tables for a star schema for a particular analytic focus
 (ii) write an ETL pipeline that transfers data from files in two local directories into these tables in Postgres using Python and SQL.
 
-# Available information
-#1 - Data Sets - Song and Log
-Under a data folder, were were provided 2 kinds of datasets. Both the datasets contained files in JSON format, in a folder structure.
+# Available Data Sets - Song and Log
+Under a data folder, 2 kinds of datasets were provided. Both the datasets contained files in JSON format, in a folder structure.
 
-#2 - Schema design in the form of fact and dimension tables
+# Helpful Templates
+The following jupyter notebooks were easy to use templates to build the project step-by-step - 
+(1) "test.ipynb" displays the first few rows of each table to let you check your database.
+(2) "etl.ipynb" reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
+Note: These Notebooks are a good help to build the project but are not required. So these are not available under this repository.
+
+# Setup Instructions
+For this project, I used the Udacity workspace even though I set up Postgres and Jupyter Notebook to run locally while following the lessons.
+
+There was no set-up required while using the Udacity workspace, but I made sure that I imported all the relevant libraries, set up appropriate connections to the database and restart kernels at the right time. Performing these steps at the right times was important while working through the commands in etl.ipynb
+
+I have used etl.ipynb to come up with the commands to read data. As I was working through this file, I updated sql_queries.py for relevant queries. As I completed each of the 5 steps in etl.ipynb, I tested them using test.ipynb. 
+
+Once all the steps in etl.ipynb were completed successfully, I completed etl.py for processing the data sets.
+
+# Schema Design
 Fact Table
     "songplays" - records in log data associated with song plays i.e. records with page NextSong
         songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
@@ -22,23 +36,6 @@ Dimension Tables
         artist_id, name, location, lattitude, longitude
     "time" - timestamps of records in songplays broken down into specific units
         start_time, hour, day, week, month, year, weekday
-        
-#3 - Template files
-(i) "test.ipynb" displays the first few rows of each table to let you check your database.
-(ii) "create_tables.py" drops and creates your tables. You run this file to reset your tables before each time you run your ETL scripts.
-(iii) "etl.ipynb" reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
-(iv) "etl.py" reads and processes files from song_data and log_data and loads them into your tables. You can fill this out based on your work in the ETL notebook.
-(v) "sql_queries.py" contains all your sql queries, and is imported into the last three files above.
-(vi) "README.md" provides discussion on your project.
-
-# Setup Instructions
-For the first project, I used the Udacity workspace even though I set up Postgres and Jupyter Notebook to run locally while following the lessons.
-
-There was no set-up required while using the Udacity workspace, but I made sure that I imported all the relevant libraries, set up appropriate connections to the database and restart kernels at the right time. Performing these steps at the right times was important while working through the commands in etl.ipynb
-
-I have used etl.ipynb to come up with the commands to read data. As I was working through this file, I updated sql_queries.py for relevant queries. As I completed each of the 5 steps in etl.ipynb, I tested them using test.ipynb. 
-
-Once all the steps in etl.ipynb were completed successfully, I completed etl.py for processing the data sets.
 
 # Program execution
 (1) To run this program locally or in the workspace, make sure that the data folder, sql_queries.py, create_tables.py, and etl.py must all be available under the same folder.
