@@ -10,14 +10,23 @@ import pandas as pd
 from sql_queries import *
 
 
-'''Method to process all the song files inside the 'data' folder.
-This method reads each file and inserts data in the Sparkify tables.
-This method is called from main -> process_data.
-The method is designed to process each song file, which is in JSON format.
-The looping logic to traverse each file is handled inside process_data.'''
-
-
 def process_song_file(cur, filepath):
+    '''
+    Method to process all the song files inside the 'data' folder.
+    This method reads each file and inserts data in the Sparkify tables.
+    This method is called from main -> process_data.
+    The method is designed to process each song file, which is in JSON format.
+    The looping logic to traverse each file is handled inside process_data.
+
+    Args:
+        cur is the cursor to the connection that's been set up
+        filepath is the folder where, in this case, all song files are stored
+
+    Returns: 
+        inserts data in songs and artists table as each line of each
+        song file is processed
+    '''
+
     # open song file - defined df
     df = pd.read_json(filepath, lines=True)
 
@@ -37,14 +46,23 @@ def process_song_file(cur, filepath):
     cur.execute(artist_table_insert, artist_data)
 
 
-'''Method to process all the log files inside the 'data' folder.
-This method reads each file and inserts data in the Sparkify tables.
-This method is called from main -> process_data.
-The method is designed to process each log file, which is in JSON format.
-The looping logic to traverse each file is handled inside process_data.'''
-
-
 def process_log_file(cur, filepath):
+    '''
+    Method to process all the log files inside the 'data' folder.
+    This method reads each file and inserts data in the Sparkify tables.
+    This method is called from main -> process_data.
+    The method is designed to process each log file, which is in JSON format.
+    The looping logic to traverse each file is handled inside process_data.
+
+    Args:
+        cur is the cursor to the connection that's been set up
+        filepath is the folder where, in this case, all log files are stored
+
+    Returns: 
+        inserts data in time, users and songplays table as each line of each
+        log file is processed
+    '''
+
     # open log file - defined df
     df = pd.read_json(filepath, lines=True)
 
@@ -88,11 +106,22 @@ def process_log_file(cur, filepath):
         cur.execute(songplay_table_insert, songplay_data)
 
 
-'''This method loops through all the song and log files and calls
-process_song_file and process_log_file appropriately.'''
-
-
 def process_data(cur, conn, filepath, func):
+    '''
+    This method loops through all the song and log files and calls
+    process_song_file and process_log_file appropriately.
+
+    Args:
+        cur is the cursor to the connection that's been set up
+        conn is the connect to the Postgres DB
+        filepath is the folder where song or log files are stored
+        func is process_song_file or process_log_file, as we process data
+
+    Returns: 
+        calls process_song_file or process_log_file to process through 
+        song and log files respectively
+    '''
+
     # get all files matching extension from directory and its subdirectories
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -116,10 +145,11 @@ def process_data(cur, conn, filepath, func):
 
 def main():
     '''Connect to the Database, Sparkify.'''
+
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 
-    '''Function calls to gather (in a list) and
+    '''Function calls to gather (in a list) and 
     process all of song and log data files.'''
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
     process_data(cur, conn, filepath='data/log_data', func=process_log_file)
