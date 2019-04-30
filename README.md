@@ -53,3 +53,4 @@ Once all the steps in etl.ipynb were completed successfully, I completed etl.py 
 1. All the links provided in Udacity lessons.
 2. Googled python commands.
 3. Learn't using Pandas by going through Slack project-1-dend-v1 channel, mentor help, and https://www.dataquest.io/blog/python-json-tutorial/
+4. https://www.datacamp.com/community/tutorials for DataFrames
